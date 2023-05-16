@@ -11,14 +11,31 @@
             else if (char === '×') calculation += '*'
             else calculation += char
         }
-        ans = eval(calculation)
+        calculatorString += '='
+        try {
+            ans = eval(calculation)
+        } catch {
+            ans = 'invalid calculation'
+        }
     }
 </script>
 
 <h1>Calculator</h1>
 <section class='calculatorDisplay'>
-    <p>{calculatorString}</p>
-    <p>{ans}</p>
+    <p class='sum'>{calculatorString}</p>
+    <p class='answer'>{ans}</p>
+</section>
+<section>
+    <OperatorButton bind:calculatorString={calculatorString} operator={'('} />
+    <OperatorButton bind:calculatorString={calculatorString} operator={')'} />
+    <button class='operator' on:click={() => {
+        calculatorString = ''
+        ans = ''
+        }}>C</button>
+    <button class='operator' on:click={() => {
+        calculatorString = calculatorString.substring(0, calculatorString.length - 1)
+        ans = ''
+        }}>←</button>
 </section>
 <section>
     <NumberButton bind:calculatorString={calculatorString} number={'7'} />
@@ -64,5 +81,14 @@
         height: 75px;
         margin: 5px;
         border-radius: 10px;
+    }
+    p {
+        margin: 5px;
+        height: 25px
+    }
+
+    .answer {
+        text-align: right;
+        font-size: 20px;
     }
 </style>

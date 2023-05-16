@@ -2,7 +2,9 @@
     export let operator;
     export let calculatorString;
     function updateCalculator(input) {
-        calculatorString += input
+        if (calculatorString[calculatorString.length - 1] === '=') calculatorString= calculatorString.substring(0, calculatorString.length - 1)
+        if (/\d/.test(calculatorString[calculatorString.length - 1])) calculatorString += input
+        if (calculatorString.length === 0 && input === '(') calculatorString += input
     }
 </script>
 
